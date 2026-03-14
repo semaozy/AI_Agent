@@ -3,7 +3,6 @@ import datetime
 from langchain_ollama import OllamaLLM
 from langchain_community.tools import DuckDuckGoSearchRun
 
-# 1. Araçlarımızı ve hafıza dosyamızı tanımlayalım
 beyin = OllamaLLM(model="llama3.2")
 arama_motoru = DuckDuckGoSearchRun()
 hafiza_dosyasi = "hafiza.txt"
@@ -33,18 +32,15 @@ def ajani_baslat():
         if soru.lower() == "kapat":
             break
 
-        # DURUM 1: Not Kaydetme
         if soru.lower().startswith("not et:"):
             kayit_icerigi = soru[7:].strip()
             sonuc = not_kaydet(kayit_icerigi)
             print(f"Ajan: {sonuc}")
             continue
 
-        # DURUM 2: Soru Cevaplama (Hafıza + İnternet)
         print("Ajan: Düşünüyorum...")
         mevcut_hafiza = hafizayi_oku()
-        
-        # Ajana hafızasını ve soruyu veriyoruz
+
         karar_propt = f"""
         Senin hafızanda şunlar yazılı:
         {mevcut_hafiza}
